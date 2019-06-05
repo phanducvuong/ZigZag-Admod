@@ -547,7 +547,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
+  m_BoundingSphereOverride: {x: 0, y: -5.3057996e+14, z: 0.0000008142067, w: 6.323129e-19}
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
@@ -591,15 +591,15 @@ Light:
   m_GameObject: {fileID: 816074500}
   m_Enabled: 1
   serializedVersion: 9
-  m_Type: 2
-  m_Color: {r: 0.33962262, g: 0.33962262, b: 0.33962262, a: 1}
+  m_Type: 0
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 1
-  m_Range: 95.32517
-  m_SpotAngle: 30
-  m_InnerSpotAngle: 21.80208
+  m_Range: 85.2
+  m_SpotAngle: 163
+  m_InnerSpotAngle: 1
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 0
+    m_Type: 2
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
@@ -632,13 +632,13 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 1
+  m_Lightmapping: 4
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: NaN, y: 1.02e-43, z: 0, w: 3.320231e+38}
+  m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
@@ -649,13 +649,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 816074500}
-  m_LocalRotation: {x: -0.39815456, y: -0.79623103, z: -0.42281505, w: -0.16945972}
-  m_LocalPosition: {x: -16.7, y: 14.600004, z: 16.9}
+  m_LocalRotation: {x: -0.5907372, y: -0.38862517, z: 0.38862517, w: -0.5907372}
+  m_LocalPosition: {x: -2.7, y: 7.5, z: 3.9}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1579413163}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: -32.573, y: -226.03499, z: 67.286}
+  m_LocalEulerAnglesHint: {x: 90, y: -226.03499, z: 67.286}
 --- !u!1 &823035463
 GameObject:
   m_ObjectHideFlags: 0
@@ -923,7 +923,7 @@ Camera:
   far clip plane: 1000
   field of view: 18
   orthographic: 1
-  orthographic size: 23.47
+  orthographic size: 22.11
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -1631,8 +1631,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -21, y: 0}
-  m_SizeDelta: {x: 314.2, y: 73.4}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 314.2, y: 115.7}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &1970816500
 MonoBehaviour:

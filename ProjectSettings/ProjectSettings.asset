@@ -65,7 +65,7 @@ PlayerSettings:
   disableDepthAndStencilBuffers: 0
   androidStartInFullscreen: 1
   androidRenderOutsideSafeArea: 1
-  androidBlitType: 0
+  androidBlitType: 1
   defaultIsNativeResolution: 1
   macRetinaSupport: 1
   runInBackground: 1
@@ -154,10 +154,10 @@ PlayerSettings:
   enableFrameTimingStats: 0
   useHDRDisplay: 0
   m_ColorGamuts: 00000000
-  targetPixelDensity: 30
+  targetPixelDensity: 60
   resolutionScalingMode: 1
   androidSupportedAspectRatio: 2
-  androidMaxAspectRatio: 8
+  androidMaxAspectRatio: 4
   applicationIdentifier:
     Android: com.Company.ZigZag
     Standalone: com.Company.ZigZag
