@@ -20,6 +20,7 @@ public class PlayerScript : MonoBehaviour
     public Rigidbody rid;
 
     public Material[] material;
+    private Material oldMaterial;
     private int color = 0;
     private int countPickup = 0;
 
@@ -30,6 +31,9 @@ public class PlayerScript : MonoBehaviour
     public int explosionRadius = 4;
     public int explosionForce = 500;
     public float explosionUpward = 0.4f;
+
+    [HideInInspector]
+    public bool isStart = false;
 
     public Animator GameOverAnim;
 
@@ -61,27 +65,31 @@ public class PlayerScript : MonoBehaviour
                 CameraScript.Instance.StopCamera();
 
                 GameOverAnim.SetTrigger("GameOver");
+                isStart = false;
             }
         }
 
-        if (Input.GetMouseButtonDown(0))
+        if (isStart)
         {
-            isPlaying = true;
-            score++;
-            ScoreText.text = score.ToString();
+            if (Input.GetMouseButtonDown(0))
+            {
+                isPlaying = true;
+                score++;
+                ScoreText.text = score.ToString();
 
-            if (dir == Vector3.forward)
-            {
-                dir = Vector3.left;
+                if (dir == Vector3.forward)
+                {
+                    dir = Vector3.left;
+                }
+                else
+                {
+                    dir = Vector3.forward;
+                }
             }
-            else
-            {
-                dir = Vector3.forward;
-            }
+
+            float amountToMove = speed * Time.deltaTime;
+            transform.Translate(dir * amountToMove);
         }
-
-        float amountToMove = speed * Time.deltaTime;
-        transform.Translate(dir * amountToMove);
     }
 
     void OnTriggerEnter(Collider other)
@@ -108,13 +116,18 @@ public class PlayerScript : MonoBehaviour
                     rb.AddExplosionForce(explosionForce, other.transform.position, explosionRadius, explosionUpward);
             }
 
+            FindObjectOfType<AudioManager>().Play("ColliderPickup");
+
             if (countPickup == 5)
             {
                 color = Random.Range(0, 4);
+                oldMaterial = other.GetComponentInChildren<Renderer>().material;
                 TileManagerScript.Instance.listObj.ForEach(e =>
                 {
-                    e.GetComponentInChildren<Renderer>().material = material[color];
+                    e.GetComponentInChildren<Renderer>().material.Lerp(oldMaterial, material[color], 0.8f);
                 });
+
+                FindObjectOfType<AudioManager>().Play("ChangeColor");
                 countPickup = 0;
             }
         }
