@@ -11,7 +11,9 @@ public class PlayerScript : MonoBehaviour
     public GameObject ps;
     public bool isDead;
     public GameObject RestartButton;
-    private int score = 0;
+
+    [HideInInspector]
+    public int score = 0;
     public Text ScoreText;
 
     public LayerMask whatIsGround;
@@ -23,6 +25,8 @@ public class PlayerScript : MonoBehaviour
     private Material oldMaterial;
     private int color = 0;
     private int countPickup = 0;
+    private int item = 0;
+    private int tempItem;
 
     public float cubeSize = 0.2f;
     public int cubeInRow = 5;
@@ -35,21 +39,30 @@ public class PlayerScript : MonoBehaviour
     [HideInInspector]
     public bool isStart = false;
 
+    private bool isCheckSound;
     public Animator GameOverAnim;
+    private PlayerData data;
 
-    // Start is called before the first frame update
+
     void Start()
     {
         isDead = false;
         dir = Vector3.zero;
-
         cubePivotDistance = cubeSize * cubeInRow / 2;
         cubePivot = new Vector3(cubePivotDistance, cubePivotDistance, cubePivotDistance);
+
+        data = SaveSystem.LoadPlayer();
+        isCheckSound = data.isCheckSound;
+        tempItem = data.item;
     }
 
-    // Update is called once per frame
     void Update()
     {
+        if (isCheckSound != FindObjectOfType<UIController>().checkSound)
+        {
+            isCheckSound = FindObjectOfType<UIController>().checkSound;
+            Debug.Log(isCheckSound);
+        }
 
         if (!Grounded() && isPlaying)
         {
@@ -60,12 +73,16 @@ public class PlayerScript : MonoBehaviour
             {
                 isDead = true;
                 RestartButton.SetActive(true);
-
                 CameraScript.Instance.isDead = true;
                 CameraScript.Instance.StopCamera();
-
                 GameOverAnim.SetTrigger("GameOver");
+
                 isStart = false;
+                int temp = item + tempItem;
+                if (data.bestScore < score)
+                    SaveSystem.SaveScore(isCheckSound, score, temp);
+                else
+                    SaveSystem.SaveScore(isCheckSound, data.bestScore, temp);
             }
         }
 
@@ -78,15 +95,10 @@ public class PlayerScript : MonoBehaviour
                 ScoreText.text = score.ToString();
 
                 if (dir == Vector3.forward)
-                {
                     dir = Vector3.left;
-                }
                 else
-                {
                     dir = Vector3.forward;
-                }
             }
-
             float amountToMove = speed * Time.deltaTime;
             transform.Translate(dir * amountToMove);
         }
@@ -98,6 +110,7 @@ public class PlayerScript : MonoBehaviour
         {
             countPickup++;
             score += 3;
+            item++;
             ScoreText.text = score.ToString();
             other.gameObject.SetActive(false);
 
@@ -105,7 +118,6 @@ public class PlayerScript : MonoBehaviour
                 for (int y = 0; y < cubeInRow; y++)
                     for (int z = 0; z < cubeInRow; z++)
                         CreatePs(other, x, y, z);
-
 
             Vector3 explosionPos = other.transform.position;
             Collider[] colliders = Physics.OverlapSphere(explosionPos, explosionRadius);
@@ -116,7 +128,8 @@ public class PlayerScript : MonoBehaviour
                     rb.AddExplosionForce(explosionForce, other.transform.position, explosionRadius, explosionUpward);
             }
 
-            FindObjectOfType<AudioManager>().Play("ColliderPickup");
+            if (isCheckSound)
+                FindObjectOfType<AudioManager>().Play("ColliderPickup");
 
             if (countPickup == 5)
             {
@@ -127,7 +140,8 @@ public class PlayerScript : MonoBehaviour
                     e.GetComponentInChildren<Renderer>().material.Lerp(oldMaterial, material[color], 0.8f);
                 });
 
-                FindObjectOfType<AudioManager>().Play("ChangeColor");
+                if (isCheckSound)
+                    FindObjectOfType<AudioManager>().Play("ChangeColor");
                 countPickup = 0;
             }
         }
@@ -145,7 +159,6 @@ public class PlayerScript : MonoBehaviour
 
     private bool Grounded()
     {
-
         Collider[] Colliders = Physics.OverlapSphere(ContactPoint.position, .5f, whatIsGround);
 
         for (int i = 0; i < Colliders.Length; i++)
@@ -153,7 +166,6 @@ public class PlayerScript : MonoBehaviour
             if (Colliders[i].gameObject != gameObject)
                 return true;
         }
-
         return false;
     }
 }

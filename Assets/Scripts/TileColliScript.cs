@@ -7,18 +7,6 @@ public class TileColliScript : MonoBehaviour
 
     private float fallDealy = 1.5f;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
     void OnTriggerExit(Collider other)
     {
         if (other.tag == "Player")

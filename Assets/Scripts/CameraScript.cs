@@ -32,7 +32,6 @@ public class CameraScript : MonoBehaviour
     // Update is called once per frame
     private void LateUpdate()
     {
-
         if (!isDead)
         {
             Vector3 desiredPosition = Player.transform.position + Offset;

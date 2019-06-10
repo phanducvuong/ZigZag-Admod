@@ -7,15 +7,15 @@ public class TileManagerScript : MonoBehaviour
 {
 
     public GameObject[] TitlePrefab;
-
     public GameObject CurrentTile;
-
     private static TileManagerScript instance;
 
     public List<GameObject> listObj;
-
     private Stack<GameObject> leftTiles = new Stack<GameObject>();
     private Stack<GameObject> topTiles = new Stack<GameObject>();
+
+    [HideInInspector]
+    public bool checkSound;
 
     //GETER SETER
     public Stack<GameObject> LeftTiles
