@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class PlayerScript : MonoBehaviour
 {
-
     public float speed;
     public Vector3 dir;
     public GameObject ps;
@@ -61,7 +60,6 @@ public class PlayerScript : MonoBehaviour
         if (isCheckSound != FindObjectOfType<UIController>().checkSound)
         {
             isCheckSound = FindObjectOfType<UIController>().checkSound;
-            Debug.Log(isCheckSound);
         }
 
         if (!Grounded() && isPlaying)
@@ -71,12 +69,13 @@ public class PlayerScript : MonoBehaviour
 
             if (!Physics.Raycast(downRay, out hit))
             {
+
                 isDead = true;
                 RestartButton.SetActive(true);
                 CameraScript.Instance.isDead = true;
                 CameraScript.Instance.StopCamera();
                 GameOverAnim.SetTrigger("GameOver");
-
+                
                 isStart = false;
                 int temp = item + tempItem;
                 if (data.bestScore < score)
@@ -90,6 +89,9 @@ public class PlayerScript : MonoBehaviour
         {
             if (Input.GetMouseButtonDown(0))
             {
+                if (isCheckSound)
+                    FindObjectOfType<AudioManager>().Play("Tab");
+                
                 isPlaying = true;
                 score++;
                 ScoreText.text = score.ToString();
@@ -99,8 +101,13 @@ public class PlayerScript : MonoBehaviour
                 else
                     dir = Vector3.forward;
             }
+
             float amountToMove = speed * Time.deltaTime;
             transform.Translate(dir * amountToMove);
+
+            if (isCheckSound)
+                FindObjectOfType<AudioManager>().Play("EndGame");
+
         }
     }
 
@@ -154,7 +161,7 @@ public class PlayerScript : MonoBehaviour
         piece.AddComponent<Rigidbody>();
         piece.GetComponent<Rigidbody>().useGravity = false;
         Destroy(piece.GetComponent<SphereCollider>());
-        Destroy(piece, 1.5f);
+        Destroy(piece, 0.75f);
     }
 
     private bool Grounded()

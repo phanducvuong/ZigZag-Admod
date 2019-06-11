@@ -6,10 +6,8 @@ using UnityEngine.UI;
 public class UIController : MonoBehaviour
 {
 
-    public GameObject GameObject;
     private PlayerScript PlayerScript;
-    public Animator anim;
-    public Image Panel;
+    public GameObject Panel;
 
     public Texture[] rawImage;
     public RawImage sound;
@@ -18,6 +16,8 @@ public class UIController : MonoBehaviour
 
     [HideInInspector]
     public bool checkSound;
+
+    public GameObject StartGameAnim;
 
     [HideInInspector]
     public int bestScore;
@@ -53,18 +53,15 @@ public class UIController : MonoBehaviour
         ItemText.text = "X\n" + item.ToString();
     }
 
-    public void StartGame()
-    {
-        anim.Play("StartGame", 0);
-        StartCoroutine(Disaple());
+    public void isStart() {
+        StartCoroutine(_isDisable());
+        StartGameAnim.GetComponent<Animator>().Play("StartGame");
+        PlayerScript.isStart = true;
     }
 
-    IEnumerator Disaple()
-    {
+    IEnumerator _isDisable() {
         yield return new WaitForSeconds(1);
-        GameObject.SetActive(false);
-        PlayerScript.isStart = true;
-        Panel.enabled = false;
+        Panel.SetActive(false);
     }
 
     public void SoundOnOff()
