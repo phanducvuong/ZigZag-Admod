@@ -10,6 +10,7 @@ public class TileManagerScript : MonoBehaviour
     public GameObject CurrentTile;
     private static TileManagerScript instance;
 
+    [HideInInspector]
     public List<GameObject> listObj;
     private Stack<GameObject> leftTiles = new Stack<GameObject>();
     private Stack<GameObject> topTiles = new Stack<GameObject>();
@@ -98,5 +99,6 @@ public class TileManagerScript : MonoBehaviour
     public void RestartGame()
     {
         SceneManager.LoadScene("ZigZagScene");
+        ADManager.Instance._DisplayInterstitialAd();
     }
 }

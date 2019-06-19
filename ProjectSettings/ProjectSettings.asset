@@ -159,7 +159,7 @@ PlayerSettings:
   androidSupportedAspectRatio: 2
   androidMaxAspectRatio: 4
   applicationIdentifier:
-    Android: com.Company.ZigZag
+    Android: com.jkstudio.zigzag
     Standalone: com.Company.ZigZag
   buildNumber: {}
   AndroidBundleVersionCode: 1

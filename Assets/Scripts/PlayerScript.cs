@@ -140,7 +140,7 @@ public class PlayerScript : MonoBehaviour
 
             if (countPickup == 5)
             {
-                color = Random.Range(0, 4);
+                color = Random.Range(0, 7);
                 oldMaterial = other.GetComponentInChildren<Renderer>().material;
                 TileManagerScript.Instance.listObj.ForEach(e =>
                 {
